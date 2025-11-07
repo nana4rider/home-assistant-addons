@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - id: version
+      - id: get-image-tag
         run: |
-          APP_VERSION=$(cat ./e2m-hass-bridge/.version | tr -d '\n')
-          echo App version: $APP_VERSION
-          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+          TAG=$(cat ./e2m-hass-bridge/.image-tag | tr -d '\n')
+          echo tag: $TAG
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -32,7 +32,7 @@ jobs:
           images: ${{ github.repository }}
           tags: |
             type=raw,value=latest
-            type=raw,value=${{ steps.version.outputs.app_version }}
+            type=raw,value=${{ steps.get-image-tag.outputs.tag }}
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -49,7 +49,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            APP_VERSION=${{ steps.version.outputs.app_version }}
+            TARGET_TAG=${{ steps.get-image-tag.outputs.tag }}
 
       - uses: sarisia/actions-status-discord@v1
         if: always()
