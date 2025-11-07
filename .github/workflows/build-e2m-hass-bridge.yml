@@ -16,13 +16,13 @@ jobs:
       - id: get-version
         name: Get Application Version
         run: |
-          ADDON_VERION=$(yq '.version' e2m-hass-bridge/config.yaml -r)
-          echo addon version: $ADDON_VERION
-          echo "addon_version=$ADDON_VERION" >> $GITHUB_OUTPUT
+          ADDON_VERSION=$(yq '.version' e2m-hass-bridge/config.yaml -r)
+          echo addon version: $ADDON_VERSION
+          echo "addon_version=$ADDON_VERSION" >> $GITHUB_OUTPUT
 
-          APP_VERSION=${ADDON_VERION%%-*}
-          echo app version: $APP_VERION
-          echo "app_version=$APP_VERION" >> $GITHUB_OUTPUT
+          APP_VERSION=${ADDON_VERSION%%-*}
+          echo app version: $APP_VERSION
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
