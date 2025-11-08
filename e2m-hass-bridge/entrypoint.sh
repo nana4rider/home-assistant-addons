@@ -9,7 +9,6 @@ if bashio::services.available "mqtt"; then
   else
     MQTT_SCHEME="mqtt://";
   fi
-  a=b
   MQTT_HOST=$(bashio::services mqtt "host")
   MQTT_PORT=$(bashio::services mqtt "port")
   export MQTT_BROKER="${MQTT_SCHEME}${MQTT_HOST}:${MQTT_PORT}";
