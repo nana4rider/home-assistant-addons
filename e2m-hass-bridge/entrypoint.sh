@@ -2,19 +2,33 @@
 
 export PORT=3000
 
-bashio::log.info "MQTT service found, fetching credentials ..."
-if bashio::var.true "$(bashio::services 'mqtt' 'ssl')"; then
-  MQTT_SCHEME="mqtts://";
-else
-  MQTT_SCHEME="mqtt://";
+if bashio::services.available "mqtt"; then
+  bashio::log.info "MQTT service found, fetching credentials ..."
+  if bashio::var.true "$(bashio::services mqtt "ssl")"; then
+    MQTT_SCHEME="mqtts://";
+  else
+    MQTT_SCHEME="mqtt://";
+  fi
+  MQTT_HOST=$(bashio::services mqtt "host")
+  MQTT_PORT=$(bashio::services mqtt "port")
+  export MQTT_BROKER="${MQTT_SCHEME}${MQTT_HOST}:${MQTT_PORT}";
+  export MQTT_USERNAME=$(bashio::services mqtt "username")
+  export MQTT_PASSWORD=$(bashio::services mqtt "password")
+  export HA_DISCOVERY_PREFIX=$(bashio::services mqtt "discovery_prefix")
 fi
-MQTT_HOST=$(bashio::services mqtt "host")
-MQTT_PORT=$(bashio::services mqtt "port")
-export MQTT_BROKER="${MQTT_SCHEME}${MQTT_HOST}:${MQTT_PORT}";
-export MQTT_USERNAME=$(bashio::services mqtt "username")
-export MQTT_PASSWORD=$(bashio::services mqtt "password")
-export HA_DISCOVERY_PREFIX=$(bashio::services 'mqtt' 'discovery_prefix')
 
+if (bashio::config.has_value 'mqtt_broker'); then
+  export MQTT_BROKER=$(bashio::config "mqtt_broker")
+fi
+if (bashio::config.has_value 'mqtt_username'); then
+  export MQTT_USERNAME=$(bashio::config "mqtt_username")
+fi
+if (bashio::config.has_value 'mqtt_password'); then
+  export MQTT_PASSWORD=$(bashio::config "mqtt_password")
+fi
+if (bashio::config.has_value 'ha_discovery_prefix'); then
+  export HA_DISCOVERY_PREFIX=$(bashio::config "ha_discovery_prefix")
+fi
 if (bashio::config.has_value 'log_level'); then
   export LOG_LEVEL=$(bashio::config "log_level")
 fi
@@ -27,5 +41,8 @@ fi
 if (bashio::config.has_value 'AUTO_REQUEST_INTERVAL'); then
   export AUTO_REQUEST_INTERVAL=$(bashio::config "auto_request_interval")
 fi
+
+bashio::log.info "broker: $MQTT_BROKER"
+bashio::log.info "discovery prefix: $HA_DISCOVERY_PREFIX"
 
 node dist/index
