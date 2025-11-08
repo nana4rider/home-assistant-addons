@@ -10,7 +10,7 @@ services:
 arch:
   - aarch64
   - amd64
-watchdog: http://[HOST]:3000/health
+watchdog: http://[HOST]:3000/healthx
 schema:
   mqtt:
     broker: str?
