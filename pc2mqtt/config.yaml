@@ -3,7 +3,7 @@ description: An application to automatically detect a PC as a switch device in H
 image: ghcr.io/nana4rider/hassio-pc2mqtt
 url: https://github.com/nana4rider/pc2mqtt
 slug: pc2mqtt
-version: v1.9.2-1
+version: v1.9.2-2
 init: false
 host_network: true
 services:
@@ -13,9 +13,9 @@ arch:
   - amd64
 watchdog: http://[HOST]:50206/health
 map:
-  - type: homeassistant_config
+  - type: addon_config
     read_only: true
-    path: /homeassistant
+    path: /addon_config
 schema:
   mqtt:
     broker: str?
@@ -33,4 +33,4 @@ options:
     username: ""
     password: ""
   log_level: info
-  device_config_path: /homeassistant/pc2mqtt-config.json
+  device_config_path: /addon_config/pc2mqtt-config.json
