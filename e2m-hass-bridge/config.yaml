@@ -22,6 +22,7 @@ schema:
   description_language: list(ja|en)
   auto_request_interval: int
 options:
+  mqtt: {}
   log_level: info
   description_language: ja
   auto_request_interval: 180000
