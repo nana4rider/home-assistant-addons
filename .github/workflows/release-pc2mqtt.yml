@@ -61,3 +61,24 @@ jobs:
         if: always()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
+  deploy-webhook:
+    name: Trigger Deploy Webhook
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Trigger deploy-webhook
+        env:
+          WEBHOOK_URL_BASE: ${{ secrets.WEBHOOK_URL_BASE }}
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }}
+        run: |
+          TIMESTAMP=$(date +%s)
+          SIGNATURE=$(echo -n "$TIMESTAMP" | openssl dgst -sha256 -hmac "$WEBHOOK_SECRET" | awk '{print $2}')
+          WEBHOOK_URL=$(printf "$WEBHOOK_URL_BASE" "pc2mqtt")
+          curl -f -X POST "$WEBHOOK_URL" \
+                -H "X-Signature: $SIGNATURE" \
+                -H "X-Timestamp: $TIMESTAMP"
