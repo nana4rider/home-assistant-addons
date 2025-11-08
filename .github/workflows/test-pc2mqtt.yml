@@ -1,0 +1,51 @@
+name: Test - hassio-pc2mqtt
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - pc2mqtt/**
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: ShellCheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ./pc2mqtt
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - id: get-version
+        name: Get Application Version
+        run: |
+          ADDON_VERSION=$(yq '.version' pc2mqtt/config.yaml -r)
+          echo addon version: $ADDON_VERSION
+
+          APP_VERSION=${ADDON_VERSION%%-*}
+          echo app version: $APP_VERSION
+          echo "app_version=$APP_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build
+        uses: docker/build-push-action@v5
+        with:
+          context: ./pc2mqtt
+          platforms: linux/amd64,linux/arm64
+          push: false
+          build-args: |
+            APP_VERSION=${{ steps.get-version.outputs.app_version }}

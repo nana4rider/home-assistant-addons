@@ -1,0 +1,34 @@
+name: PC2MQTT
+description: An application to automatically detect a PC as a switch device in Home Assistant.
+image: nana4rider/hassio-pc2mqtt
+url: https://github.com/nana4rider/pc2mqtt
+slug: pc2mqtt
+version: v1.9.0-alpha1
+init: false
+host_network: true
+services:
+  - mqtt:want
+arch:
+  - aarch64
+  - amd64
+watchdog: http://[HOST]:50206/health
+map:
+  - homeassistant_config:r
+schema:
+  mqtt:
+    broker: str?
+    username: str?
+    password: str?
+  ha_discovery_prefix: str?
+  log_level: str?
+  device_config_path: str
+  availability_interval: int?
+  state_change_pause_duration: int?
+  check_alive_interval: int?
+options:
+  mqtt:
+    broker: ""
+    username: ""
+    password: ""
+  log_level: info
+  device_config_path: /homeassistant/pc2mqtt-config.json
