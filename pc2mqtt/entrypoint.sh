@@ -3,7 +3,6 @@
 export PORT=50206
 
 if ! bashio::config.has_value 'mqtt.broker' && bashio::services.available "mqtt"; then
-  bashio::log.info "MQTT service found, fetching credentials ..."
   if bashio::var.true "$(bashio::services mqtt "ssl")"; then
     MQTT_SCHEME="mqtts://";
   else
