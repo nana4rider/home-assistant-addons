@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/base:stable
 ARG APP_VERSION=latest
 
-FROM nana4rider/e2m-hass-bridge:${APP_VERSION} AS bridge
+FROM ghcr.io/nana4rider/e2m-hass-bridge:${APP_VERSION} AS bridge
 
 ARG BUILD_FROM
 FROM ${BUILD_FROM}
