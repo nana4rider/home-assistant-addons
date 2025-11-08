@@ -1,4 +1,4 @@
-name: Docker build - e2m-hass-bridge
+name: Release - e2m-hass-bridge
 on:
   push:
     branches:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   build-and-publish:
+    name: Build and Publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
