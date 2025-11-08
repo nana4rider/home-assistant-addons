@@ -14,7 +14,6 @@ if bashio::services.available "mqtt"; then
   export MQTT_BROKER="${MQTT_SCHEME}${MQTT_HOST}:${MQTT_PORT}";
   export MQTT_USERNAME=$(bashio::services mqtt "username")
   export MQTT_PASSWORD=$(bashio::services mqtt "password")
-  export HA_DISCOVERY_PREFIX=$(bashio::services mqtt "discovery_prefix")
 fi
 
 if (bashio::config.has_value 'mqtt.broker'); then
@@ -35,14 +34,11 @@ fi
 if (bashio::config.has_value 'echonetlite2mqtt_base_topic'); then
   export ECHONETLITE2MQTT_BASE_TOPIC=$(bashio::config "echonetlite2mqtt_base_topic")
 fi
-if (bashio::config.has_value 'DESCRIPTION_LANGUAGE'); then
+if (bashio::config.has_value 'description_language'); then
   export DESCRIPTION_LANGUAGE=$(bashio::config "description_language")
 fi
-if (bashio::config.has_value 'AUTO_REQUEST_INTERVAL'); then
+if (bashio::config.has_value 'auto_request_interval'); then
   export AUTO_REQUEST_INTERVAL=$(bashio::config "auto_request_interval")
 fi
-
-bashio::log.info "broker: $MQTT_BROKER"
-bashio::log.info "discovery prefix: $HA_DISCOVERY_PREFIX"
 
 node dist/index

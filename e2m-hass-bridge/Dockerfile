@@ -12,11 +12,6 @@ WORKDIR /app
 COPY --from=bridge /app ./
 COPY ./entrypoint.sh /entrypoint.sh
 
-HEALTHCHECK --interval=30s \
-    --timeout=3s \
-    --start-period=5s \
-    CMD curl --fail http://localhost:3000/health || exit 1
-
 RUN chmod +x /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
