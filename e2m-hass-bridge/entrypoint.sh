@@ -17,14 +17,14 @@ if bashio::services.available "mqtt"; then
   export HA_DISCOVERY_PREFIX=$(bashio::services mqtt "discovery_prefix")
 fi
 
-if (bashio::config.has_value 'mqtt_broker'); then
-  export MQTT_BROKER=$(bashio::config "mqtt_broker")
+if (bashio::config.has_value 'mqtt.broker'); then
+  export MQTT_BROKER=$(bashio::config "mqtt.broker")
 fi
-if (bashio::config.has_value 'mqtt_username'); then
-  export MQTT_USERNAME=$(bashio::config "mqtt_username")
+if (bashio::config.has_value 'mqtt.username'); then
+  export MQTT_USERNAME=$(bashio::config "mqtt.username")
 fi
-if (bashio::config.has_value 'mqtt_password'); then
-  export MQTT_PASSWORD=$(bashio::config "mqtt_password")
+if (bashio::config.has_value 'mqtt.password'); then
+  export MQTT_PASSWORD=$(bashio::config "mqtt.password")
 fi
 if (bashio::config.has_value 'ha_discovery_prefix'); then
   export HA_DISCOVERY_PREFIX=$(bashio::config "ha_discovery_prefix")

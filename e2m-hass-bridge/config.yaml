@@ -3,7 +3,7 @@ description: This is an application for automatically discovering devices found 
 image: nana4rider/hassio-e2m-hass-bridge
 url: https://github.com/nana4rider/e2m-hass-bridge
 slug: e2m_hass_bridge
-version: v1.14.0-alpha5
+version: v1.14.0-alpha6
 init: false
 services:
   - mqtt:need
@@ -12,9 +12,10 @@ arch:
   - amd64
 watchdog: http://[HOST]:3000/health
 schema:
-  mqtt_broker: str?
-  mqtt_username: str?
-  mqtt_password: str?
+  mqtt:
+    broker: str?
+    username: str?
+    password: str?
   ha_discovery_prefix: str?
   log_level: str?
   echonetlite2mqtt_base_topic: str?
