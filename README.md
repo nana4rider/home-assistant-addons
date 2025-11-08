@@ -9,8 +9,8 @@
 
 This repository contains the following add-ons
 
-- [ECHONETLite2MQTT Home Assistant Bridge](./e2m-hass-bridge)
-- [PC2MQTT](./pc2mqtt)
+- [ECHONETLite2MQTT Home Assistant Bridge](https://github.com/nana4rider/e2m-hass-bridge)
+- [PC2MQTT](https://github.com/nana4rider/pc2mqtt)
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
