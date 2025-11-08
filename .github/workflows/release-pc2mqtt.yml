@@ -35,7 +35,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/ ${{ github.actor }}/hassio-pc2mqtt
+          images: ghcr.io/${{ github.actor }}/hassio-pc2mqtt
           tags: |
             type=raw,value=latest
             type=raw,value=${{ steps.get-version.outputs.addon_version }}
