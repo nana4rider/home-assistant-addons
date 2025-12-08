@@ -1,3 +1,6 @@
+## v1.10.1-1
+- Updated pc2mqtt to version [`v1.10.1`](https://github.com/nana4rider/pc2mqtt/releases/tag/v1.10.1)
+
 ## v1.10.0-1
 - Updated pc2mqtt to version [`v1.10.0`](https://github.com/nana4rider/pc2mqtt/releases/tag/v1.10.0)
 
