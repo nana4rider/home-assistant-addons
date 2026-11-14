@@ -1,3 +1,6 @@
+## v1.15.4-1
+- Updated e2m-hass-bridge to version [`v1.15.4`](https://github.com/nana4rider/e2m-hass-bridge/releases/tag/v1.15.4)
+
 ## v1.15.3-1
 - Updated e2m-hass-bridge to version [`v1.15.3`](https://github.com/nana4rider/e2m-hass-bridge/releases/tag/v1.15.3)
 
